@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+
+</head>
+<body>
+	<input type="hidden" >
+	<div class="container">
+		
+
+	</div>
+</body>
+<script type="text/javascript" src="lib/js/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+
+		var patt = {
+			patt1 : '<button class="btn btn-danger btn-xs" ><span class="glyphicon glyphicon-trash"></span></button>',
+			patt2 : '<button class="btn btn-primary btn-xs" ><span class="glyphicon glyphicon-pencil"></span></button>',
+			patt3 : '<div class="checker"><span><input type="checkbox" class="styled" ></span></div>',
+			btnclose : '<a href="#" class="btn btn-default btn-xs"><i class="icon-close2 position-left"></i> ปิด</a>',
+			btnSave : '<button type="button" class="btn bg-orange-600 btn-xs"> <i class="icon-floppy-disk position-left"></i> บันทึก</button>',
+			btnAdd : '<button type="button" class="btn bg-orange-600"><span class="glyphicon glyphicon-plus"  aria-hidden="true"></span>เพิ่ม</button>',
+			btnImport : '<button type="button" class="btn bg-teal-400 btn-xs"> <span class=" icon-file-download" aria-hidden="true"></span> นำเข้าข้อมูล</button>',
+			btnExport : '<button type="button" class="btn bg-teal-400 btn-xs"><span class=" icon-file-download" aria-hidden="true"></span> ส่งออกข้อมูล</button>',
+			btnsearch : '<button class="btn bg-orange-600 btn-xs" data-toggle="modal" data-target="#" type="button"><span class="glyphicon glyphicon-search"></span> ค้นหา</button>',
+			calendar : '<div class="input-group"><input type="text" class="form-control daterange-single input-xs" value="03/18/2013" disabled="disabled"><span class="input-group-addon"><i class="icon-calendar22"></i></span></div>'
+		}
+
+		var replaceTag = (html) => {
+			let Tagreplace = html.replace(/</gm,"&lt;");
+			return Tagreplace;
+		}
+
+	function copyToClipboard(element) {
+	    var $temp = $("<input>");
+	    $("body").append($temp);
+	    $temp.val($(element).text()).select();
+	    document.execCommand("copy");
+	    $temp.remove();
+	}
+		
+		$.each(patt, function(index, val) {
+			$(".container").append(
+				'<div class="row" style="margin-top: 5px;">'+
+					'<div class="col-md-3">'+val+'</div>'+
+					'<div class="col-md-7" id="'+index+'">'+replaceTag(val)+'</div>'+
+					'<div class="col-md-2"><a href="#" class="btn btn-info" patt="'+index+'" data-clipboard-target="#'+index+'">copy to clipboard</a></div>'+
+				'</div><hr>'
+			)
+			
+		});
+
+		$("[patt]").click(function() {
+			let pattNum = $(this).attr('patt');
+			let el = $("#"+pattNum).text();
+			alert(el);
+			copyToClipboard("#"+pattNum);
+		});
+		
+		
+		
+	});
+</script>
+
+</html>
